@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>Creating Functional Components</title>
+</head>
+<body>
+
+<div id='root'></div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+<script>
+
+    const products = [
+        'Swansea City shirt',
+        'Cardiff City shirt',
+        'Bugatti Divo',
+        '55in OLED HD TV',
+        'Carving skis',
+        'Ski boots',
+    ]
+    
+    const shops = [
+        'London',
+        'Paris',
+        'NY',
+        'Swansea',
+    ]
+
+    function App(props) {
+
+        let caption = props.caption;
+
+        return (
+            React.createElement('div', null,
+                React.createElement('h1', null, caption),
+                React.createElement('h2', null, 'Catalog'),
+                React.createElement(ItemsList, {items: products, isOrdered: true}, null),
+                React.createElement('h2', null, 'Shops'),
+                React.createElement(ItemsList, {items: shops, isOrdered: false}, null),
+            )
+        )
+    }
+
+    function ItemsList({isOrdered, items}) {
+
+        //object Destructing below code
+
+        //let {isOrdered, items} = props;
+
+        const tagName = isOrdered ? 'ol' : 'ul';
+
+        return (
+            React.createElement(
+                tagName, 
+                null, 
+                items.map((item, i) => React.createElement("li", { key: i }, item))
+            )
+        )
+    }
+
+    const app = React.createElement(App, {caption: 'How cool is this'}, null)
+
+    const root = ReactDOM.createRoot(document.getElementById('root'))
+    root.render(app)
+
+</script>
+
+</body>
+</html>
